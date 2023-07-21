@@ -32,14 +32,28 @@ async function fetchJokes(){
     let response = await fetch(url)
         .then(res => res.json())
         .then(data => {
-                client.on("messageCreate", (message)=> {
-                    console.log(message.author.username + " Just sent a message " + message.author.id)
-                    if (message.content === "/telljoke") {
-                        message.reply(data.value)
-                    } 
-                })
-                
+            client.on("messageCreate", (message)=> {
+                console.log(message.author.username + " Just sent a message " + message.author.id)
+
+                switch (message.content) {
+                    case "/telljoke":
+                        message.reply(data.value);
+                        break;
+                    case "/repo":
+                        message.reply("Here's my repo ya fatty" + " https://github.com/TrustierSquid/Chuckie");
+                        break;
+                    case "arch":
+                        message.reply("I use arch btw");
+                        break
+                    case "Meloetta":
+                        message.reply("Meloetta kinda bad tho");
+                        break;
+                    default:
+                        return
+                }
             })
+            
+        })
             
         .catch(err => console.log("That api didnt work"))
 
@@ -53,7 +67,7 @@ client.on('ready', (c)=> {
 
     // When chuckie is activated, he will greet everyone
     console.log("I'm Ready! " + c.user.tag);
-    channel.send("Hello everyone!")
+    // channel.send("Hello everyone!")
 
     
 });
